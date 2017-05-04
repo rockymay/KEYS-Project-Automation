@@ -48,7 +48,11 @@ namespace Modules.Pages
 
             
         }
-
+        public void quit()
+        {
+            var driver = Global.GlobalDefinition.driver;
+            driver.Close();
+        }
 
     }
 }

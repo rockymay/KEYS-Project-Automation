@@ -77,9 +77,11 @@ namespace Modules.Pages
 
         #endregion
 
-        private void navigate()
+        public void navigate()
         {
+            PropertyModuleTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Navigate Start " );
             Global.GlobalDefinition.driver.Navigate().GoToUrl("http://new-keys.azurewebsites.net/PropertyOwners");
+
         }
 
         public void AddProperty()
@@ -150,8 +152,9 @@ namespace Modules.Pages
 
             string currentURL = driver.Url;
 
-            for (int i = 2; i < pageNumber; i++)
+            for (int i = 2; i < 4; i++)
             {
+                PropertyModuleTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Page: " + i);
 
                 string url = currentURL.Substring(0, currentURL.Length - 1) + i;
 
@@ -169,6 +172,7 @@ namespace Modules.Pages
                 }
 
             }
+            PropertyModuleTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Button Check Pass");
 
         }
 
@@ -276,16 +280,19 @@ namespace Modules.Pages
         }
 
 
-        public void Search()
+        public void SearchFunction()
         {
+            navigate();
+
             var driver = Global.GlobalDefinition.driver;
 
+            PropertyModuleTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Click on UI");
             searchTextBox.SendKeys("test");
             searchBtn.Click();
 
             //Get number of results
             Console.WriteLine("Search result number for current page: " + driver.FindElements(By.XPath("//*[@id='propList']/tr")).Count());
-
+            PropertyModuleTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Search func pass");
 
         }
 
@@ -310,5 +317,7 @@ namespace Modules.Pages
 
             return result;
         }
+
+       
     }
 }
