@@ -22,7 +22,7 @@ namespace Modules
 
 
     [TestFixture]
-    public class PropertyModuleTest
+    public class ModulesTest
     {
         public static ExtentReports reports;
         public static ExtentTest test;
@@ -33,7 +33,7 @@ namespace Modules
             //Define report
             string currentFolder = @"C:\Users\rockymay\Source\Repos\KEYS-Project";
             string reportFolder = currentFolder + "\\" + "Test.html";
-            reports = new ExtentReports(reportFolder, false, DisplayOrder.OldestFirst);  //, false, DisplayOrder.NewestFirst
+            reports = new ExtentReports(@"C:/Users/rockymay/Source/Repos/KEYS-Project/Modules/Modules/Test.html", false, DisplayOrder.NewestFirst);  //, false, DisplayOrder.NewestFirst
 
             //Define Browser and Open d
             Global.GlobalDefinition.driver = new ChromeDriver();
@@ -80,7 +80,7 @@ namespace Modules
         {
             test = reports.StartTest("PropertySearchFunction");
             PropertyPage propertyObj = new PropertyPage();
-            
+
             propertyObj.SearchFunction();
         }
 
@@ -103,6 +103,79 @@ namespace Modules
 
         }
 
+        //#####################################
+        [Test]
+        public void AdminSorting()
+        {
+            test = reports.StartTest("AdminSorting");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.Sorting();
+        }
+
+
+        [Test]
+        public void AdminCheckActionButton()
+        {
+            test = reports.StartTest("AdminCheckActionButton");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.CheckActionButton();
+        }
+
+
+
+
+        [Test]
+        public void AdminActionDetailViewButton()
+        {
+            test = reports.StartTest("AdminActionDetailViewButton");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.ActionDetailViewButton();
+        }
+
+
+
+
+        [Test]
+        public void AdminActionDetailEditButton()
+        {
+            test = reports.StartTest("AdminActionDetailEditButton");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.ActionDetailEditButton();
+        }
+
+
+        [Test]
+        public void AdminActionDetailDeleteButton()
+        {
+            test = reports.StartTest("AdminActionDetailDeleteButton");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.ActionDetailDeleteButton();
+        }
+
+
+
+
+        [Test]
+        public void AdminSearchFunction()
+        {
+            test = reports.StartTest("AdminSearchFunction");
+
+            AdminPage adminObj = new AdminPage();
+            adminObj.SearchFunction();
+        }
+
+
+
+
+        //##########################################
+
+
+
 
         [TearDown]
 
@@ -120,53 +193,4 @@ namespace Modules
         }
 
     }
-
-    [TestFixture] 
-    public class AdminModuleTest
-    {
-        public static ExtentReports reports;
-        public static ExtentTest test;
-
-        [SetUp]
-        public void Login()
-        {
-            ////Define report
-            string reportPath = Environment.CurrentDirectory + "\\" + "Test.html";
-            reports = new ExtentReports(reportPath, false, DisplayOrder.NewestFirst);
-
-            //Define Browser and Open 
-
-            Global.GlobalDefinition.driver = new ChromeDriver();
-
-            LoginPages loginObj = new LoginPages();
-            loginObj.LoginStep();
-
-            //Take screenshots after login
-            Global.SaveScreenShotClass.SaveScreenshot(Global.GlobalDefinition.driver, "LoginSuccessful");
-
-
-        }
-
-        [Test]
-        public void AdminAddPropertyTest()
-        {
-            test = reports.StartTest("AdminAddPropertyTest");
-
-            PropertyPage propertyObj = new PropertyPage();
-            propertyObj.ActionDetailDeleteButton();
-        }
-
-
-
-        [TearDown]
-
-        public void Closing()
-        {
-
-            LoginPages loginObj = new LoginPages();
-            loginObj.quit();
-        }
-
-    }
-
 }
