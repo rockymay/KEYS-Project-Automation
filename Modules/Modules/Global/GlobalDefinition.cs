@@ -85,7 +85,7 @@ namespace Modules.Global
             dataCol.Clear();
         }
 
-/*
+
         private static DataTable ExcelToDataTable(string fileName, string SheetName)
         {
             // Open file and return as Stream
@@ -162,7 +162,7 @@ namespace Modules.Global
 
         }
 
-*/
+
     }
 
     public class SaveScreenShotClass
@@ -187,9 +187,6 @@ namespace Modules.Global
         }
     }
 
-    public class VerifyResult
-    {
-       
-    }
+    
 }
     

@@ -13,16 +13,16 @@ namespace Modules.Pages
 {
     class PropertyPage
     {
-        public PropertyPage()
+        public PropertyPage()  //Initiate
         {
 
             PageFactory.InitElements(Global.GlobalDefinition.driver, this);
 
             //Populate in collection
             //Global.ExcelLib.PopulateInCollection("demo.xlsx", "LoginPage");
-            navigate();
+            navigate(); //Navigate to Property Page
         }
-
+        #region  Construct Element
         [FindsBy(How = How.XPath, Using = "//*[@id='propertyDetails']/div/div[1]/div/div[1]/div/div/input")]
         public IWebElement propertyName { get; set; }
         [FindsBy(How = How.Id, Using = "jobDescription")]
@@ -72,9 +72,10 @@ namespace Modules.Pages
 
         [FindsBy(How = How.Id, Using = "searchId")]
         public IWebElement searchTextBox { get; set; }
-        [FindsBy(How = How.XPath, Using = "//*[@id='property-grid']/div/form/div/div/div/button/span[2]")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='property-grid']/div/form/div/div/div/button")]
         public IWebElement searchBtn { get; set; }
 
+        #endregion
 
         private void navigate()
         {
@@ -127,6 +128,167 @@ namespace Modules.Pages
             }
 
         }
+
+        public void EdltProperty()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            Global.GlobalDefinition.ActionButton(driver, "Id", "add-new-property");
+
+        }
+
+        public void CheckActionButton()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            //Get page number
+            var pageMessage = driver.FindElement(By.XPath("//*[@id='pagedList']/div/ul/li[1]/a")).Text;
+            int startIndex = pageMessage.IndexOf("of") + 2;
+            int endIndex = pageMessage.IndexOf(".");
+            int pageNumber = int.Parse(pageMessage.Substring(startIndex, endIndex - startIndex));
+            //Console.WriteLine(pageNumber);
+
+            string currentURL = driver.Url;
+
+            for (int i = 2; i < pageNumber; i++)
+            {
+
+                string url = currentURL.Substring(0, currentURL.Length - 1) + i;
+
+                driver.Navigate().GoToUrl(url);
+
+                var propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+                foreach (var item in propLists)
+                {
+                    //Click on Action button and Click away.
+                    item.FindElement(By.XPath("./td[3]/div/button")).Click();
+
+                    item.FindElement(By.XPath("./td[1]")).Click();
+
+                }
+
+            }
+
+        }
+
+        public void ActionDetailViewButton()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            var propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+            for (int i = 0; i < propLists.Count(); i++)
+            {
+                propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+                //Click on Action button and Click away.
+                propLists[i].FindElement(By.XPath("./td[3]/div/button")).Click();
+
+                //Get action detail button
+                var actionDetailBtn = propLists[i].FindElements(By.XPath("./td[3]/div/ul/li"));
+                Console.WriteLine("No. Detail Button: " + actionDetailBtn.Count());
+                for (int j=0; j<actionDetailBtn.Count(); j++)
+
+                {
+                    Console.WriteLine(actionDetailBtn[j].Text + "+END");
+                    
+                    if (actionDetailBtn[j].Text == "DETAILS")
+                    {
+                        actionDetailBtn[j].Click();
+                        //Go back to Index
+                        driver.FindElement(By.XPath("//*[@id='property-grid']/div/div/div[5]/button")).Click();
+                        break;
+                    }
+                   
+                }
+
+            }
+        }
+
+        public void ActionDetailEditButton()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            var propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+            for (int i = 0; i < propLists.Count(); i++)
+            {
+                propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+
+                //Click on Action button and Click away.
+                propLists[i].FindElement(By.XPath("./td[3]/div/button")).Click();
+
+                //Get action detail button
+                var actionDetailBtn = propLists[i].FindElements(By.XPath("./td[3]/div/ul/li"));
+                Console.WriteLine("No. Detail Button: " + actionDetailBtn.Count());
+                for (int j = 0; j < actionDetailBtn.Count(); j++)
+
+                {
+                    if (actionDetailBtn[j].Text == "EDIT")
+                    {
+                        actionDetailBtn[j].Click();
+                        //Go back to Index
+                        driver.FindElement(By.XPath("//*[@id='propertyDetails']/div/div[5]/button[2]")).Click();
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        public void ActionDetailDeleteButton()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            var propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+            for (int i = 0; i < propLists.Count(); i++)
+            {
+
+                propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
+
+                //Click on Action button and Click away.
+                propLists[i].FindElement(By.XPath("./td[3]/div/button")).Click();
+
+                //Get action detail button
+                var actionDetailBtn = propLists[i].FindElements(By.XPath("./td[3]/div/ul/li"));
+                Console.WriteLine("No. Detail Button: " + actionDetailBtn.Count());
+                for (int j = 0; j < actionDetailBtn.Count(); j++)
+
+                {
+                    Console.WriteLine(actionDetailBtn[j].Text + "+END");
+
+                   if (actionDetailBtn[j].Text == "DELETE")
+                    {
+                        actionDetailBtn[j].Click();
+                        //Go back to Index
+                        Thread.Sleep(1000);
+                        driver.FindElement(By.XPath("/html/body/div[7]/div/div/div[3]/button[2]")).Click();
+                        Thread.Sleep(1000);
+
+                    }
+                   
+                }
+
+            }
+        }
+
+
+        public void Search()
+        {
+            var driver = Global.GlobalDefinition.driver;
+
+            searchTextBox.SendKeys("test");
+            searchBtn.Click();
+
+            //Get number of results
+            Console.WriteLine("Search result number for current page: " + driver.FindElements(By.XPath("//*[@id='propList']/tr")).Count());
+
+
+        }
+
 
         public bool verifyResult(IWebDriver driver, string url, string name, string address)
         {
