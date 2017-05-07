@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global\GlobalDefinition.cs" />
+    <Compile Include="Pages\ServiceSupplier.cs" />
     <Compile Include="Pages\LoginPages.cs" />
     <Compile Include="Pages\AdminPage.cs" />
     <Compile Include="Pages\PropertyPage.cs" />

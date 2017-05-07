@@ -14,7 +14,8 @@ namespace Modules
     {
         static void Main(string[] args)
         {
-
+            PropertyPage propertyObj = new PropertyPage();
+            propertyObj.CheckActionButton();
 
 
         }
@@ -69,7 +70,7 @@ namespace Modules
         [Test]
         public void PropertyActionDetailViewButton()
         {
-            // = reports.StartTest("PropertyActionDetailViewButton");
+            test = reports.StartTest("PropertyActionDetailViewButton");
             PropertyPage propertyObj = new PropertyPage();
             propertyObj.ActionDetailViewButton();
         }
@@ -170,6 +171,58 @@ namespace Modules
         }
 
 
+
+
+
+        //#####################################  SERVICE PROVIDOR   ##################
+
+        [Test]
+        public void ServiceSorting()
+        {
+            test = reports.StartTest("Service Sorting");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.Sorting();
+        }
+
+        [Test]
+        public void ServiceCheckActionButton()
+        {
+            test = reports.StartTest("Service CheckActionButton");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.CheckActionButton();
+        }
+
+        [Test]
+        public void ServiceActionDetailViewButton()
+        {
+            test = reports.StartTest("Service ActionDetailViewButton");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.ActionDetailViewButton();
+        }
+
+        [Test]
+        public void ServiceActionDetailEditButton()
+        {
+            test = reports.StartTest("Service ActionDetailEditButton");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.ActionDetailEditButton();
+        }
+
+        [Test]
+        public void ServiceActionDetailDeleteButton()
+        {
+            test = reports.StartTest("Service ActionDetailDeleteButton");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.ActionDetailDeleteButton();
+        }
+
+        [Test]
+        public void ServiceSearchFunction()
+        {
+            test = reports.StartTest("Service SearchFunction");
+            ServiceSupplier serviceObj = new ServiceSupplier();
+            serviceObj.SearchFunction();
+        }
 
 
         //##########################################

@@ -154,7 +154,7 @@ namespace Modules.Pages
 
             for (int i = 2; i < 4; i++)
             {
-                ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Page: " + i);
+                ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Page: " + (i + 1));
 
                 string url = currentURL.Substring(0, currentURL.Length - 1) + i;
 
@@ -184,6 +184,8 @@ namespace Modules.Pages
 
             for (int i = 0; i < propLists.Count(); i++)
             {
+                ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Proplist: " + (i + 1));
+
                 propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
 
                 //Click on Action button and Click away.
@@ -208,6 +210,7 @@ namespace Modules.Pages
                 }
 
             }
+            ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Detail Button Check Pass");
         }
 
         public void ActionDetailEditButton()
@@ -218,6 +221,8 @@ namespace Modules.Pages
 
             for (int i = 0; i < propLists.Count(); i++)
             {
+                ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Proplist: " + (i + 1));
+
                 propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
 
 
@@ -240,6 +245,7 @@ namespace Modules.Pages
                 }
 
             }
+            ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Edit Button Check Pass");
         }
 
         public void ActionDetailDeleteButton()
@@ -250,6 +256,7 @@ namespace Modules.Pages
 
             for (int i = 0; i < propLists.Count(); i++)
             {
+                ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Info, "Button Check on Proplist: " + (i+1));
 
                 propLists = driver.FindElements(By.XPath("//*[@id='propList']/tr"));
 
@@ -277,6 +284,7 @@ namespace Modules.Pages
                 }
 
             }
+            ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Delete Button Check Pass");
         }
 
 
@@ -292,6 +300,7 @@ namespace Modules.Pages
 
             //Get number of results
             Console.WriteLine("Search result number for current page: " + driver.FindElements(By.XPath("//*[@id='propList']/tr")).Count());
+
             ModulesTest.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Search func pass");
 
         }
